@@ -1,5 +1,6 @@
 
 var stocks = [];
+var text;
 var i = 0;
 var name = "John Doe";
 var bank = 0;
@@ -18,6 +19,28 @@ document.getElementById("price").innerHTML = "Price per share: $" + price;
 document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
 document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
 
+function loadGame() {
+	if (confirm("You would like to load a saved game?")) {
+        //load game
+        text = "OK";
+        window.open('index.html');
+        } else {
+        //cancel
+        text = "Cancel";
+        }  
+        document.getElementById("loadgame").innerHTML = text;
+        }
+        function newGame() {
+        if (confirm("You like to start a new game?")) {
+        //new game
+        text = "OK";
+        window.open('index.html');
+        } else {
+        //cancel
+        text = "Cancel";
+        }         
+        document.getElementById("loadgame").innerHTML = text;
+        }
 function incrementValueUp() {
     document.getElementById('inc').value = ++i;
 }
