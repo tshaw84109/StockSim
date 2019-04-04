@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Fantasy Stocks</title>
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<script type="text/javascript" src="script.js" ></script>
+	<title>Fantasy Stocks</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+       
+        
 	</head>
-	<body onload="loadStockTable()">
+	<body>
         <div class="content">
             <div class="networth-cash-name-title">
                 <div>
@@ -20,13 +21,13 @@
             </div>
             <div class="networth-cash-name-data">
                 <div>
-                    <h2>$2875.83</h2>
+                    <p id="networth"></p>
                 </div>
                 <div>
-                    <h2>$731.64</h2>
+                    <p id="bank"></p>
                 </div>
                 <div>
-                    <h2>John Doe</h2>
+                    <p id="name"></p>
                 </div>
             </div>
             <div class="event-banner">
@@ -46,44 +47,41 @@
                 <div class="stock-data-panel">
                     <div class="my-stock-title">
                         <div>
-                            <h3>Own</h3>
-                            <h3>Worth</h3>
+                            <p id="stocksAvailable"></p>
+                            <p id="price"></p>
                         </div>
                         <div class="my-stock-data">
-                            <h3>#12</h3>
-                            <h3>$1273.51</h3>
+                            <p id="myStocks"></p>
+                            <p id="currentWorth"></p>
                         </div>
                     </div>
+                    
                     <div class="sell-buy-stocks">
                         <div class="sell-buy-stocks-title">
-                            <h3>Sell</h3>
-                            <h3>#</h3>
-                            <h3>Buy</h3>
+                            <input type ="button" onclick ="buy()" value="Buy" />
+                            <input type ="button" onclick ="sell()" value="Sell" />
+                            
+                            
                         </div>
                         <div class="sell-buy-stocks-data">
-                            <button>-</button>
-                            <input>
-                            <button>+</button>
+                            <input type="button" onclick="incrementValueDown()" value="-" />
+                            <input type="text" id="inc" i="0"/>
+                            <input type="button" onclick="incrementValueUp()" value="+" />
                         </div>
                     </div>
                 </div>
             </div>
-			
-            <div class="stocks-table" id="StockTableDiv">
-                <!-- <table>
-                    
-					<th style="width: 50%">Name</th>
+            <div class="stocks-table">
+                <table>
+                    <th style="width: 50%">Name</th>
                     <th style="width: 20%">Category</th>
                     <th style="width: 10%">value</th>
                     <th style="width: 10%">changed</th>
                     <th style="width: 5%">own</th>
                     <th style="width: 5%">worth</th>
-                </table> -->
+                </table>
             </div>
         </div>
-		
-		<script>
-				
-		</script>
+        <script type="text/javascript" src="script.js" ></script>
 	</body>
 </html>
