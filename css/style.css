@@ -1,0 +1,119 @@
+*
+{
+	margin: 0;
+	padding: 0;
+    border: none;
+    text-align: center;
+    font-family: fantasy;
+}
+
+
+html, body, div.main-body
+{
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    color: white;
+}
+
+div.content
+{
+    background-color: darkolivegreen;
+    width: 90%;
+    min-width: 950px;
+    height: 90%;
+    min-height: 720px;
+	margin: 32px auto;
+}
+
+div.networth-cash-name-title div, div.networth-cash-name-data div
+{
+    float: left; 
+    width: 33.33%;
+    padding: 20px 0px;
+    background-color: darkslategray;
+}
+
+div.event-banner
+{
+    width: 100%;
+    height: 36px;
+}
+
+div.event-banner h1
+{
+    float: left;
+    width: 10%;
+    height: 100%;
+    background-color: red;
+}
+
+div.event-banner input
+{
+    float: left;
+    width: 80%;
+    height: 100%;
+}
+
+div.event-banner button
+{
+    float: left;
+    width: 10%;
+    height: 100%;
+    background-color: brown;
+    color: white;
+}
+
+div.stock-title
+{
+    padding: 180px 0px 36px 0px;
+    font-size: 48px;
+    background-color: aqua
+}
+
+div.action-panel
+{
+    width: 100%;
+    height: 256px;
+    background-color: crimson
+}
+
+div.graph-panel
+{
+    float: left;
+    width: 50%;
+    height: 100%;
+    background-color: chartreuse;
+}
+
+div.graph-panel canvas
+{
+    float: left;
+    width: 90%;
+    height: 90%;
+    margin: 5%;
+    background-color: coral;
+}
+
+div.stock-data-panel
+{
+    float: right;
+    width: 50%;
+    height: 100%;
+    background-color: orange;
+}
+
+div.stocks-table
+{
+    width: 100%;
+    height: 30%;
+    background-color: darkmagenta;
+}
+
+div.stocks-table table, th, td
+{
+    height: 48px;
+    border-collapse: collapse;
+    border: 1px solid white;
+    background-color: deepskyblue;
+}
