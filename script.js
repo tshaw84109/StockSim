@@ -1,7 +1,76 @@
 
 var stocks = [];
+var text;
+var i = 0;
+var name = "John Doe";
+var bank = 0;
+var networth = 0;
+var stocks = 0;
+var price = 100;
+var currentWorth = 0;
+var stocksAvailable = 100;
 //loadPrompt(); //This function is automatically called when the as the html page is loading, no need for anything from the HTML file -Tyler
 
+document.getElementById("name").innerHTML = name;
+document.getElementById("networth").innerHTML = "$" + networth;
+document.getElementById("bank").innerHTML = "$" + bank;
+document.getElementById("myStocks").innerHTML = "Owned: " + stocks;
+document.getElementById("price").innerHTML = "Price per share: $" + price;
+document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
+document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
+
+function loadGame() {
+	if (confirm("You would like to load a saved game?")) {
+        //load game
+        text = "OK";
+        window.open('index.html');
+        } else {
+        //cancel
+        text = "Cancel";
+        }  
+        document.getElementById("loadgame").innerHTML = text;
+        }
+        function newGame() {
+        if (confirm("You like to start a new game?")) {
+        //new game
+        text = "OK";
+        window.open('index.html');
+        } else {
+        //cancel
+        text = "Cancel";
+        }         
+        document.getElementById("loadgame").innerHTML = text;
+        }
+function incrementValueUp() {
+    document.getElementById('inc').value = ++i;
+}
+function incrementValueDown() {
+    document.getElementById('inc').value = --i;
+}
+function buy() {
+    networth = networth -= i * price;
+    document.getElementById("networth").innerHTML = "$" + networth;
+    bank = bank -= i * price;
+    document.getElementById("bank").innerHTML = "$" + bank;              
+    stocks = stocks + i;
+    document.getElementById("myStocks").innerHTML = "Owned: " + stocks;
+    stocksAvailable = stocksAvailable - i;
+    document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
+    currentWorth = currentWorth + price * i;
+    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;  
+}
+function sell() {
+    bank = bank += i * price;
+    document.getElementById("bank").innerHTML = "$" + bank;
+    networth = networth += i * price;
+    document.getElementById("networth").innerHTML = "$" + networth;
+    stocks = stocks - i;
+    document.getElementById("myStocks").innerHTML = "Owned: " + stocks;
+    stocksAvailable = stocksAvailable + i;
+    document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
+    currentWorth = currentWorth - price * i;
+    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
+}
 function StartingStockValue(){
 	return Math.floor(Math.random()*20)+10;
 }
