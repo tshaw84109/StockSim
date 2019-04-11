@@ -3,10 +3,11 @@
 	<head>
 	<title>Fantasy Stocks</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
+		
        
         
 	</head>
-	<body>
+	<body onload="loadStockTable()">
         <div class="content">
             <div class="networth-cash-name-title">
                 <div>
@@ -71,17 +72,10 @@
                     </div>
                 </div>
             </div>
-            <div class="stocks-table">
-                <table>
-                    <th style="width: 50%">Name</th>
-                    <th style="width: 20%">Category</th>
-                    <th style="width: 10%">value</th>
-                    <th style="width: 10%">changed</th>
-                    <th style="width: 5%">own</th>
-                    <th style="width: 5%">worth</th>
-                </table>
+             <div class="stocks-table" id="StockTableDiv">
             </div>
         </div>
-        <script type="text/javascript" src="script.js" ></script>
+        
+		<script type="text/javascript" src="script.js" ></script>
 	</body>
 </html>
