@@ -10,6 +10,7 @@ var stocks = 0;
 var price = 100;
 var currentWorth = 0;
 var stocksAvailable = 100;
+var selectedStockID= 0;
 //loadPrompt(); //This function is automatically called when the as the html page is loading, no need for anything from the HTML file -Tyler
 
 
@@ -22,28 +23,28 @@ document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + cu
 document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
 
 function StartingStockValue(){
-	return Math.floor(Math.random()*20)+10;
+    return Math.floor(Math.random()*20)+10;
 }
 
 function getValue(id){
-	return stocksArray[id].shares * stocksArray[id].value[(stocksArray[id].value.length)-1];
+    return stocksArray[id].shares * stocksArray[id].value[(stocksArray[id].value.length)-1];
 }
 
 
 
 function GenerateStock(CompanyName, StartValue){
-	returnValue = {company:"", value:[0],shares:0}
-	returnValue.company = CompanyName;
-	returnValue.value.push(StartValue);
-	return returnValue;
+    returnValue = {company:"", value:[0],shares:0}
+    returnValue.company = CompanyName;
+    returnValue.value.push(StartValue);
+    return returnValue;
 }
 
 function GenerateStartingStocks(StocksArray){
-	StocksArray.push(GenerateStock("Toms Tailors", StartingStockValue()));
-	StocksArray.push(GenerateStock("Bobs Butchery", StartingStockValue()));
-	StocksArray.push(GenerateStock("Fuzzy Furrier", StartingStockValue()));
-	StocksArray.push(GenerateStock("Musical Minsteral", StartingStockValue()));
-	StocksArray.push(GenerateStock("Gold Mine", StartingStockValue()));
+    StocksArray.push(GenerateStock("Toms Tailors", StartingStockValue()));
+    StocksArray.push(GenerateStock("Bobs Butchery", StartingStockValue()));
+    StocksArray.push(GenerateStock("Fuzzy Furrier", StartingStockValue()));
+    StocksArray.push(GenerateStock("Musical Minsteral", StartingStockValue()));
+    StocksArray.push(GenerateStock("Gold Mine", StartingStockValue()));
 }
 
 function loadStockTable(){
@@ -55,7 +56,7 @@ function loadStockTable(){
 
         html += "<tr>"
         html += "<td><button onclick='loadSelectedStock(" + i + ")'>" + stocksArray[i].company  + "</button></td>"
-        html += "<td>" + stocksArray[i].shares  + "</td>"
+        html += "<td id='shares'" + i + ">" + stocksArray[i].shares  + "</td>"
         html += "<td>" + getValue(i)  + "</td>"
         html += "<td>" + stocksArray[i].value[((stocksArray[i].value.length)-1)]  + "</td>"
         html += "<td>" + (stocksArray[i].value[((stocksArray[i].value.length)-1)] - stocksArray[i].value[((stocksArray[i].value.length)-2)])  + "</td>"
@@ -66,13 +67,14 @@ function loadStockTable(){
     html += "</td></tr></table>"
 
     document.getElementById("StockTableDiv").innerHTML = html;
+    loadSelectedStock(selectedStockID);
 }
 
 
 
 
 function loadGame() {
-	if (confirm("You would like to load a saved game?")) {
+    if (confirm("You would like to load a saved game?")) {
         //load game
         text = "OK";
         window.open('index.html');
@@ -109,11 +111,14 @@ function buy() {
     bank = bank -= i * price;
     document.getElementById("bank").innerHTML = "$" + bank;              
     stocks = stocks + i;
-    document.getElementById("myStocks").innerHTML = "Owned: " + stocks;
+    stocksArray[selectedStockID].shares += i;
+    document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[selectedStockID].shares;
     stocksAvailable = stocksAvailable - i;
     document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
     currentWorth = currentWorth + price * i;
-    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;  
+    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
+    loadStockTable();
+    
 }
 
 
@@ -124,11 +129,13 @@ function sell() {
     networth = networth += i * price;
     document.getElementById("networth").innerHTML = "$" + networth;
     stocks = stocks - i;
-    document.getElementById("myStocks").innerHTML = "Owned: " + stocks;
+    stocksArray[selectedStockID].shares -= i;
+    document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[selectedStockID].shares;
     stocksAvailable = stocksAvailable + i;
     document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
     currentWorth = currentWorth - price * i;
     document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
+    loadStockTable();
 }
 
 
@@ -137,21 +144,21 @@ function sell() {
 
 
 function loadPrompt() { //loadPrompt prompts the player to load or start a new game, as needed -Tyler
-	//if (webdata file exists where we expect it)
-		//then prompt user for load or new game
-		if (confirm('Load a game? Press OK to load your last saved game, or press cancel to start a new game.')) {
-		// User has selected to load
+    //if (webdata file exists where we expect it)
+        //then prompt user for load or new game
+        if (confirm('Load a game? Press OK to load your last saved game, or press cancel to start a new game.')) {
+        // User has selected to load
             //load game
             //end this function
-			alert('You selected to load a game');
-		} else {
-			//alert('You selected to start a new game');
-			newPlayer();
-		}
-	
+            alert('You selected to load a game');
+        } else {
+            //alert('You selected to start a new game');
+            newPlayer();
+        }
+    
     //else auto start a new game
-	//alert('No saved game found, a new game is being started.');
-		//input name
+    //alert('No saved game found, a new game is being started.');
+        //input name
 
 }
 
@@ -170,13 +177,13 @@ function newGame() { //return new player? nothing? a return code?
 */
 /*
 <body>
-	<p>Click to begin</p>
-	<button onclick="loadGame()">Here</button>
-	<p id="loadgame"></p>
+    <p>Click to begin</p>
+    <button onclick="loadGame()">Here</button>
+    <p id="loadgame"></p>
 
-	<h2>Enter your player name.</h2>
-	<button onclick="newPlayer()">click here</button>
-	<p id="player"></p>
+    <h2>Enter your player name.</h2>
+    <button onclick="newPlayer()">click here</button>
+    <p id="player"></p>
 </body>
 */
 
@@ -193,8 +200,11 @@ function newPlayer() {
 }
 
 function loadSelectedStock(StockID){
-	document.getElementById("stockTitle").innerHTML = ""+stocksArray[StockID].company;
-	
+    SelectedStockID = StockID;
+    document.getElementById("stockTitle").innerHTML = ""+stocksArray[StockID].company;
+    document.getElementById("price").innerHTML = "Price per share: $" + stocksArray[StockID].value[((stocksArray[StockID].value.length)-1)];
+    document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[StockID].shares;
+    
 }
 
 function nextDay()
