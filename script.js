@@ -32,7 +32,6 @@ function getValue(id){
 
 
 function GenerateStock(CompanyName, StartValue){
-	//alert('stocks generated called');
 	returnValue = {company:"", value:[0],shares:0}
 	returnValue.company = CompanyName;
 	returnValue.value.push(StartValue);
@@ -48,28 +47,27 @@ function GenerateStartingStocks(StocksArray){
 }
 
 function loadStockTable(){
-	
-	GenerateStartingStocks(stocksArray);
-	
-	html = '<table><th style="width: 50%">Name</th> <th style="width: 20%">Category</th> <th style="width: 10%">value</th> <th style="width: 10%">changed</th> <th style="width: 5%">own</th> <th style="width: 5%">worth</th>'
-	
-	for(i = 0 ; i < stocksArray.length ; i++){
-		
-		html += "<tr>"
-		html += "<td><button onclick='loadSelectedStock(" + i + ")'>" + stocksArray[i].company  + "</button></td>"
-		html += "<td>" + stocksArray[i].shares  + "</td>"
-		html += "<td>" + getValue(i)  + "</td>"
-		html += "<td>" + stocksArray[i].value[((stocksArray[i].value.length)-1)]  + "</td>"
-		html += "<td>" + (stocksArray[i].value[((stocksArray[i].value.length)-1)] - stocksArray[i].value[((stocksArray[i].value.length)-2)])  + "</td>"
-		html += "</tr>"
-		
-	}
-	
-	html += "</td></tr></table>"
-	
-	document.getElementById("StockTableDiv").innerHTML = html;
-	alert("got here")
+
+    if(stocksArray.length < 1){GenerateStartingStocks(stocksArray);}
+    html = '<table style = "width: 100%"><th style="width: 40%">Name</th> <th style="width: 15%">Shares Owned</th> <th style="width: 15%">Worth</th> <th style="width: 15%">Price</th> <th style="width: 15%">Change</th>'
+
+    for(i = 0 ; i < stocksArray.length ; i++){
+
+        html += "<tr>"
+        html += "<td><button onclick='loadSelectedStock(" + i + ")'>" + stocksArray[i].company  + "</button></td>"
+        html += "<td>" + stocksArray[i].shares  + "</td>"
+        html += "<td>" + getValue(i)  + "</td>"
+        html += "<td>" + stocksArray[i].value[((stocksArray[i].value.length)-1)]  + "</td>"
+        html += "<td>" + (stocksArray[i].value[((stocksArray[i].value.length)-1)] - stocksArray[i].value[((stocksArray[i].value.length)-2)])  + "</td>"
+        html += "</tr>"
+
+    }
+
+    html += "</td></tr></table>"
+
+    document.getElementById("StockTableDiv").innerHTML = html;
 }
+
 
 
 
@@ -193,6 +191,23 @@ function newPlayer() {
   //document.getElementById("player").innerHTML = txt;
   alert(txt);
 }
+
+function loadSelectedStock(StockID){
+	document.getElementById("stockTitle").innerHTML = ""+stocksArray[StockID].company;
+	
+}
+
+function nextDay()
+{
+    alert("gothere");
+    var j;
+    for(j = 0; j< stocksArray.length;j++)
+    {
+        stocksArray[j].value.push(100);
+    }
+    loadStockTable();
+}
+
 
 //load hardcoded values for new  game
 //var name = person;

@@ -34,10 +34,10 @@
             <div class="event-banner">
                 <h1>Event:</h1>
                 <input>
-                <button name="Next Day">Next Day</button>
+                <button name="Next Day" onclick="nextDay()">Next Day</button>
             </div>
             <div class="stock-title">
-                <h1>The Round Table</h1>
+                <h1 id="stockTitle"></h1>
             </div>
             <div class="action-panel">
                 <div class="graph-panel">
@@ -45,7 +45,7 @@
                     
                     </canvas>
                 </div>
-                <div class="stock-data-panel">
+                <div class="stock-data-panel" id="selectedStock">
                     <div class="my-stock-title">
                         <div>
                             <p id="stocksAvailable"></p>
