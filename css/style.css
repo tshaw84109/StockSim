@@ -88,11 +88,12 @@ div.graph-panel
 
 div.graph-panel canvas
 {
-    float: left;
-    width: 90%;
-    height: 90%;
-    margin: 5%;
-    background-color: coral;
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 475px;
+    height: 100%;
+    background-color: #1e1e1e;
 }
 
 div.stock-data-panel
