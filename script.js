@@ -204,21 +204,48 @@ function loadSelectedStock(StockID){
     document.getElementById("stockTitle").innerHTML = ""+stocksArray[StockID].company;
     document.getElementById("price").innerHTML = "Price per share: $" + stocksArray[StockID].value[((stocksArray[StockID].value.length)-1)];
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[StockID].shares;
-    
+    GenerateGraph(StockID);
 }
 
 function nextDay()
 {
-    alert("gothere");
-    var j;
     for(j = 0; j< stocksArray.length;j++)
     {
-        stocksArray[j].value.push(100);
+        stocksArray[j].value.push(Math.floor(Math.random() * 125));
     }
     loadStockTable();
 }
 
-
+function GenerateGraph(StockID)
+{
+    //define variables
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    var valueLength = stocksArray[StockID].value.length;
+    //clear canvas for redraw
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //set color of lines
+    ctx.strokeStyle = "#2368ff";
+    //draw the dotted base line
+    ctx.beginPath();
+    ctx.setLineDash([5, 15]);
+    ctx.moveTo(0, 125);
+    ctx.lineTo(canvas.width, 125);
+    ctx.stroke();
+    //Set up for actual graphing
+    ctx.beginPath();
+    ctx.setLineDash([]);
+    //draw a line from each value point of the given stock
+    for(i = 0;i<valueLength;i++)
+    {
+        //draw a circle at every point
+        ctx.arc((i*(canvas.width/valueLength)), -1*stocksArray[StockID].value[i]+125, 2, 0, 2 * Math.PI);
+        //move from the current point to the future point and draw a line
+        ctx.moveTo((i*(canvas.width/valueLength)), -1*stocksArray[StockID].value[i]+125);
+        ctx.lineTo(((i+1)*(canvas.width/valueLength)), -1*stocksArray[StockID].value[i+1]+125);
+        ctx.stroke();
+    }
+}
 //load hardcoded values for new  game
 //var name = person;
 //var bank = 10000;
