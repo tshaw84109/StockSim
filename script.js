@@ -33,9 +33,10 @@ function getValue(id){
 
 
 function GenerateStock(CompanyName, StartValue){
-    returnValue = {company:"", value:[0],shares:0}
+    returnValue = {company:"", value:[0],shares:0,trend:0}
     returnValue.company = CompanyName;
     returnValue.value.push(StartValue);
+	returnValue.trend = (Math.random()-Math.random()-.01);
     return returnValue;
 }
 
@@ -211,7 +212,9 @@ function nextDay()
 {
     for(j = 0; j< stocksArray.length;j++)
     {
-        stocksArray[j].value.push(Math.floor(Math.random() * 125));
+        stocksArray[j].value.push(stocksArray[j].value[stocksArray[j].value.length-1]+
+		Math.floor((Math.random()-Math.random())*10+stocksArray[j].trend));
+		stocksArray[j].trend += 0.001;
     }
     loadStockTable();
 }
