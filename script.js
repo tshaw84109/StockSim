@@ -115,7 +115,7 @@ function sell() {
     loadStockTable();
 }
 function loadSelectedStock(StockID){
-    SelectedStockID = StockID;
+    selectedStockID = StockID;
     document.getElementById("stockTitle").innerHTML = ""+stocksArray[StockID].company;
     document.getElementById("price").innerHTML = "Price per share: $" + stocksArray[StockID].value[((stocksArray[StockID].value.length)-1)];
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[StockID].shares;
