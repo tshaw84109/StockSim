@@ -23,11 +23,11 @@ document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 10
 function StartingStockValue(){
     return Math.floor(Math.random()*20)+10;
 }
-function getValue(id){
+function getWorth(id){
     return stocksArray[id].shares * stocksArray[id].value[(stocksArray[id].value.length)-1];
 }
 function GenerateStock(CompanyName, StartValue){
-    returnValue = {company:"", value:[0],shares:0,trend:0, swing:0}
+    returnValue = {company:"", value:[0],shares:0,trend:0,swing:0}
     returnValue.company = CompanyName;
     returnValue.value.push(StartValue);
 	returnValue.trend = (Math.random()-Math.random()-.01);
@@ -51,7 +51,7 @@ function loadStockTable(){
         html += "<tr>"
         html += "<td><button onclick='loadSelectedStock(" + i + ")'>" + stocksArray[i].company  + "</button></td>"
         html += "<td id='shares'" + i + ">" + stocksArray[i].shares  + "</td>"
-        html += "<td>" + getValue(i)  + "</td>"
+        html += "<td>" + getWorth(i)  + "</td>"
         html += "<td>" + stocksArray[i].value[((stocksArray[i].value.length)-1)]  + "</td>"
         html += "<td>" + (stocksArray[i].value[((stocksArray[i].value.length)-1)] - stocksArray[i].value[((stocksArray[i].value.length)-2)])  + "</td>"
         html += "</tr>"
@@ -97,8 +97,7 @@ function buy() {
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[selectedStockID].shares;
     stocksAvailable = stocksAvailable - i;
     document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
-    stocksArray[selectedStockID].worth += price * i;
-    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + stocksArray[selectedStockID].worth;
+    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + getWorth(selectedStockID);
     loadStockTable();
     
 }
@@ -112,8 +111,7 @@ function sell() {
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[selectedStockID].shares;
     stocksAvailable = stocksAvailable + i;
     document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
-    stocksArray[selectedStockID].worth -=  price * i;
-    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + stocksArray[selectedStockID].worth;
+    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + getWorth(selectedStockID);
     loadStockTable();
 }
 function loadSelectedStock(StockID){
@@ -121,7 +119,7 @@ function loadSelectedStock(StockID){
     document.getElementById("stockTitle").innerHTML = ""+stocksArray[StockID].company;
     document.getElementById("price").innerHTML = "Price per share: $" + stocksArray[StockID].value[((stocksArray[StockID].value.length)-1)];
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[StockID].shares;
-    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + stocksArray[selectedStockID].worth;
+    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + getWorth(selectedStockID);
     GenerateGraph(StockID);
 }
 function nextDay()
