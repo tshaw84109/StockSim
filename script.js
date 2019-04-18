@@ -2,16 +2,21 @@ var stocksArray = [];
 var text;
 // variable for incrementing functions
 var i = 0;
+var incrementCounter = 0;
 //player name
 var name = name;
-var bank = 0;
+var bank = 1000;
 var networth = 0;
 var stocks = 0;
 var price = 100;
 var currentWorth = 0;
 var stocksAvailable = 100;
 var selectedStockID= 0;
+var eventString = "Death";
+var o;
 
+document.getElementById('event').value = eventString;
+document.getElementById('inc').value = incrementCounter;
 document.getElementById("name").innerHTML = localStorage.newPlayer;
 document.getElementById("networth").innerHTML = "$" + networth;
 document.getElementById("bank").innerHTML = "$" + bank;
@@ -23,15 +28,14 @@ document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 10
 function StartingStockValue(){
     return Math.floor(Math.random()*20)+10;
 }
-function getWorth(id){
+function getValue(id){
     return stocksArray[id].shares * stocksArray[id].value[(stocksArray[id].value.length)-1];
 }
 function GenerateStock(CompanyName, StartValue){
-    returnValue = {company:"", value:[0],shares:0,trend:0,swing:0}
+    //returnValue = {company:"", value:[0],shares:0}
+    returnValue = {company:"", value:[0],shares:0,trend:0,worth:0}
     returnValue.company = CompanyName;
     returnValue.value.push(StartValue);
-	returnValue.trend = (Math.random()-Math.random()-.01);
-	returnValue.swing = (5 + (Math.random()+Math.random())*5);
     return returnValue;
 }
 function GenerateStartingStocks(StocksArray){
@@ -51,11 +55,12 @@ function loadStockTable(){
         html += "<tr>"
         html += "<td><button onclick='loadSelectedStock(" + i + ")'>" + stocksArray[i].company  + "</button></td>"
         html += "<td id='shares'" + i + ">" + stocksArray[i].shares  + "</td>"
-        html += "<td>" + getWorth(i)  + "</td>"
+        html += "<td>" + getValue(i)  + "</td>"
         html += "<td>" + stocksArray[i].value[((stocksArray[i].value.length)-1)]  + "</td>"
         html += "<td>" + (stocksArray[i].value[((stocksArray[i].value.length)-1)] - stocksArray[i].value[((stocksArray[i].value.length)-2)])  + "</td>"
         html += "</tr>"
-
+        incrementCounter = 0;
+        document.getElementById('inc').value = incrementCounter;
     }
     html += "</td></tr></table>"
     document.getElementById("StockTableDiv").innerHTML = html;
@@ -82,61 +87,64 @@ function newGame() {
         window.open('index.html');
 }
 function incrementValueUp() {
-    document.getElementById('inc').value = ++i;
+    document.getElementById('inc').value = ++incrementCounter;
 }
 function incrementValueDown() {
-    document.getElementById('inc').value = --i;
+    
+    document.getElementById('inc').value = --incrementCounter;
 }
 function buy() {
-    networth = networth -= i * price;
+    currentWorth = currentWorth + price * incrementCounter;
+    if (bank < currentWorth) {
+        alert("You do not have enough money to buy these shares.")
+    }
+    else{
     document.getElementById("networth").innerHTML = "$" + networth;
-    bank = bank -= i * price;
+    bank = bank -= incrementCounter * price;
     document.getElementById("bank").innerHTML = "$" + bank;              
-    stocks = stocks + i;
-    stocksArray[selectedStockID].shares += i;
+    stocks = stocks + incrementCounter;
+    stocksArray[selectedStockID].shares += incrementCounter;
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[selectedStockID].shares;
-    stocksAvailable = stocksAvailable - i;
+    stocksAvailable = stocksAvailable - incrementCounter;
     document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
-    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + getWorth(selectedStockID);
-    loadStockTable();
     
+    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
+    loadStockTable();
+    }
 }
 function sell() {
-    bank = bank += i * price;
+    if (stocks < incrementCounter) {
+        alert("You shares to sell.")
+    }
+    else{
+    bank = bank += incrementCounter * price;
     document.getElementById("bank").innerHTML = "$" + bank;
-    networth = networth += i * price;
     document.getElementById("networth").innerHTML = "$" + networth;
-    stocks = stocks - i;
-    stocksArray[selectedStockID].shares -= i;
+    stocks = stocks - incrementCounter;
+    stocksArray[selectedStockID].shares -= incrementCounter;
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[selectedStockID].shares;
-    stocksAvailable = stocksAvailable + i;
+    stocksAvailable = stocksAvailable + incrementCounter;
     document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
-    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + getWorth(selectedStockID);
+    currentWorth = currentWorth - price * incrementCounter;
+    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
     loadStockTable();
+    }
 }
 function loadSelectedStock(StockID){
-    selectedStockID = StockID;
+    SelectedStockID = StockID;
     document.getElementById("stockTitle").innerHTML = ""+stocksArray[StockID].company;
     document.getElementById("price").innerHTML = "Price per share: $" + stocksArray[StockID].value[((stocksArray[StockID].value.length)-1)];
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[StockID].shares;
-    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + getWorth(selectedStockID);
     GenerateGraph(StockID);
 }
 function nextDay()
 {
     for(j = 0; j< stocksArray.length;j++)
     {
-        stocksArray[j].value.push(stocksArray[j].value[stocksArray[j].value.length-1]+
-		Math.floor((Math.random()-Math.random())*stocksArray[j].swing+stocksArray[j].trend));
-		stocksArray[j].trend += 0.001;
-		if(stocksArray[j].value.length > 60)
-		{
-			stocksArray[j].value.shift();
-			stocksArray[j].value.shift();
-			
-		}
+        stocksArray[j].value.push(Math.floor(Math.random() * 125));
     }
     loadStockTable();
+    event();
 }
 function GenerateGraph(StockID)
 {
@@ -167,4 +175,7 @@ function GenerateGraph(StockID)
         ctx.lineTo(((i+1)*(canvas.width/valueLength)), -1*stocksArray[StockID].value[i+1]+125);
         ctx.stroke();
     }
+}
+function event() {
+    document.getElementById('event').value = "Not Death";
 }
