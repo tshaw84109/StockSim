@@ -3,31 +3,28 @@
     <head>
     <title>Fantasy Stocks</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        
-       
-        
     </head>
     <body onload="loadStockTable()">
         <div class="content">
             <div class="networth-cash-name-title">
-                <div>
+                <div class="networth-top-title">
                     <h1>Networth</h1>
                 </div>
-                <div>
+                <div class="cash-top-title">
                     <h1>Cash</h1>
                 </div>
-                <div>
+                <div class="name-top-title">
                     <h1>Name</h1>
                 </div>
             </div>
             <div class="networth-cash-name-data">
-                <div>
+                <div class="networth-top-data">
                     <p id="networth"></p>
                 </div>
-                <div>
+                <div class="cash-top-data">
                     <p id="bank"></p>
                 </div>
-                <div>
+                <div class="name-top-data">
                     <p id="name"></p>
                 </div>
             </div>
@@ -44,36 +41,28 @@
                     <canvas id="myCanvas"></canvas>
                 </div>
                 <div class="stock-data-panel" id="selectedStock">
-                    <div class="my-stock-title">
-                        <div>
-                            <p id="stocksAvailable"></p>
-                            <p id="price"></p>
-                        </div>
-                        <div class="my-stock-data">
-                            <p id="myStocks"></p>
-                            <p id="currentWorth"></p>
-                        </div>
+                    <div class="stock-data-banner">
+                        <div class="stock-data-own-title"><p id="stocksAvailable"></p></div>
+                        <div class="stock-data-worth-title"><p id="price"></p></div>
+                        <div><p id="myStocks"></p></div>
+                        <div><p id="currentWorth"></p></div>
                     </div>
-                    
-                    <div class="sell-buy-stocks">
+                    <div class="sell-buy-panel">
                         <div class="sell-buy-stocks-title">
-                            <input type ="button" onclick ="buy()" value="Buy" />
-                            <input type ="button" onclick ="sell()" value="Sell" />
-                            
-                            
+                            <div><input type ="button" onclick ="buy()" value="Buy" /></div>
+                            <div><h1>#</h1></div>
+                            <div><input type ="button" onclick ="sell()" value="Sell" /></div>
                         </div>
                         <div class="sell-buy-stocks-data">
-                            <input type="button" onclick="incrementValueDown()" value="-" />
-                            <input type="text" id="inc" i="0"/>
-                            <input type="button" onclick="incrementValueUp()" value="+" />
+                            <div><input type="button" onclick="incrementValueDown()" value="-" /></div>
+                            <div><input type="text" id="inc" i="0"/></div>
+                            <div><input type="button" onclick="incrementValueUp()" value="+" /></div>
                         </div>
                     </div>
                 </div>
             </div>
-             <div class="stocks-table" id="StockTableDiv">
-            </div>
+            <div class="stocks-table" id="StockTableDiv"></div>
         </div>
-        
         <script type="text/javascript" src="script.js" ></script>
     </body>
 </html>

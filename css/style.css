@@ -29,9 +29,14 @@ div.content
 div.networth-cash-name-title div, div.networth-cash-name-data div
 {
     float: left; 
-    width: 33.33%;
+    width: 33%;
     padding: 20px 0px;
     background-color: darkslategray;
+}
+
+div.networth-cash-name-title div.name-top-title, div.networth-cash-name-data div.name-top-data
+{
+    width: 34%;
 }
 
 div.event-banner
@@ -88,9 +93,6 @@ div.graph-panel
 
 div.graph-panel canvas
 {
-    padding: 0;
-    margin: auto;
-    display: block;
     width: 475px;
     height: 100%;
     background-color: #1e1e1e;
@@ -100,8 +102,38 @@ div.stock-data-panel
 {
     float: right;
     width: 50%;
+    height: 50%;
+    background-color: violet;
+}
+
+div.stock-data-banner
+{
+        padding: 0;
+    margin: auto;
+    display: block;
+    width: 100%;
     height: 100%;
-    background-color: orange;
+}
+
+div.stock-data-banner div
+{
+    float: left;
+    width: 50%;
+    height; 1000%;
+    background-color: firebrick;
+}
+
+div.sell-buy-panel
+{
+    width: 100%;
+}
+
+div.sell-buy-panel div
+{
+    float: left;
+    width: 50%;
+    height: auto;
+    background-color: firebrick;
 }
 
 div.stocks-table
