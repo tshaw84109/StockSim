@@ -26,15 +26,23 @@ document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + cu
 document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
 
 function StartingStockValue(){
-    return Math.floor(Math.random()*20)+10;
+	tempCents = Math.ceil(Math.random()*2000)+1000
+    return tempCents/100;
 }
-function getValue(id){
+function getWorth(id){
     return stocksArray[id].shares * stocksArray[id].value[(stocksArray[id].value.length)-1];
 }
+
+function getValue(id){
+    return stocksArray[id].value[(stocksArray[id].value.length)-1];
+}
+
 function GenerateStock(CompanyName, StartValue){
     //returnValue = {company:"", value:[0],shares:0}
-    returnValue = {company:"", value:[0],shares:0,trend:0,worth:0}
+    returnValue = {company:"", value:[0],shares:0,trend:0,swing:0,worth:0}
     returnValue.company = CompanyName;
+	returnValue.trend = Math.random()-Math.random();
+	returnValue.swing = 5+Math.random()*5+Math.random()*5;
     returnValue.value.push(StartValue);
     return returnValue;
 }
@@ -55,7 +63,7 @@ function loadStockTable(){
         html += "<tr>"
         html += "<td><button onclick='loadSelectedStock(" + i + ")'>" + stocksArray[i].company  + "</button></td>"
         html += "<td id='shares'" + i + ">" + stocksArray[i].shares  + "</td>"
-        html += "<td>" + getValue(i)  + "</td>"
+        html += "<td>" + getWorth(i)  + "</td>"
         html += "<td>" + stocksArray[i].value[((stocksArray[i].value.length)-1)]  + "</td>"
         html += "<td>" + (stocksArray[i].value[((stocksArray[i].value.length)-1)] - stocksArray[i].value[((stocksArray[i].value.length)-2)])  + "</td>"
         html += "</tr>"
@@ -141,11 +149,34 @@ function nextDay()
 {
     for(j = 0; j< stocksArray.length;j++)
     {
-        stocksArray[j].value.push(Math.floor(Math.random() * 125));
+		if(getValue(j)>110) SplitStock(j);
+		tempCents = getValue(j)*100;
+		chang = (Math.random()-Math.random())*stocksArray[j].swing/50+stocksArray[j].trend/50;
+		tempCents = Math.ceil(tempCents*(1+chang));
+        stocksArray[j].value.push(tempCents/100);
+		if(stocksArray[j].value.length > 60)
+		{
+			stocksArray[j].value.shift();
+			stocksArray[j].value.shift();
+		}
+		if(stocksArray[j].trend < 1)stocksArray[j].trend += .002;
+		if(stocksArray[j].trend > 1) stocksArray[j].trend = 1;
+		if(stocksArray[j].swing > 5) stocksArray[j].swing -= .001;
+		if(stocksArray[j].swing < 5) stocksArray[j].swing = 5;
+		
     }
     loadStockTable();
     event();
 }
+
+function SplitStock(StockID)
+{
+	stocksArray[StockID].value.push(getValue(StockID)/2);
+	stocksArray[StockID].share *= 2;
+}
+
+
+
 function GenerateGraph(StockID)
 {
     //define variables
