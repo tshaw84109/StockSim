@@ -52,6 +52,12 @@ function GenerateStartingStocks(StocksArray){
     StocksArray.push(GenerateStock("Fuzzy Furrier", StartingStockValue()));
     StocksArray.push(GenerateStock("Musical Minsteral", StartingStockValue()));
     StocksArray.push(GenerateStock("Gold Mine", StartingStockValue()));
+    StocksArray.push(GenerateStock("ChewChew Meat Shop", StartingStockValue()));
+    StocksArray.push(GenerateStock("2-bit Smithing", StartingStockValue()));
+    StocksArray.push(GenerateStock("The Cattle Ranch", StartingStockValue()));
+    StocksArray.push(GenerateStock("Moonside Inn", StartingStockValue()));
+    StocksArray.push(GenerateStock("Temple of the Gods", StartingStockValue()));
+    StocksArray.push(GenerateStock("Stock N' Shop", StartingStockValue()));
 }
 function loadStockTable(){
 
@@ -122,7 +128,7 @@ function buy() {
 }
 function sell() {
     if (stocks < incrementCounter) {
-        alert("You shares to sell.")
+        alert("You don't have enough shares to sell.")
     }
     else{
     bank = bank += incrementCounter * price;
@@ -185,8 +191,9 @@ function GenerateGraph(StockID)
     var valueLength = stocksArray[StockID].value.length;
     //clear canvas for redraw
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //set color of lines
-    ctx.strokeStyle = "#2368ff";
+    //set color and width of lines
+    ctx.strokeStyle = "#0061ff";
+    ctx.lineWidth = 2;
     //draw the dotted base line
     ctx.beginPath();
     ctx.setLineDash([5, 15]);

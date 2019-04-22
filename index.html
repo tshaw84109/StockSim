@@ -6,40 +6,26 @@
     </head>
     <body onload="loadStockTable()">
         <div class="content">
-            <div class="networth-cash-name-title">
-                <div class="networth-top-title">
-                    <h1>Networth</h1>
+            <div class="networth-cash-name">
+                <div class="networth-cash-name-title">
+                    <div class="networth-top-title"><h1>Networth</h1></div>
+                    <div class="cash-top-title"><h1>Cash</h1></div>
+                    <div class="name-top-title"><h1>Name</h1></div>
                 </div>
-                <div class="cash-top-title">
-                    <h1>Cash</h1>
-                </div>
-                <div class="name-top-title">
-                    <h1>Name</h1>
-                </div>
-            </div>
-            <div class="networth-cash-name-data">
-                <div class="networth-top-data">
-                    <p id="networth"></p>
-                </div>
-                <div class="cash-top-data">
-                    <p id="bank"></p>
-                </div>
-                <div class="name-top-data">
-                    <p id="name"></p>
+                <div class="networth-cash-name-data">
+                    <div class="networth-top-data"><p id="networth"></p></div>
+                    <div class="cash-top-data"><p id="bank"></p></div>
+                    <div class="name-top-data"><p id="name"></p></div>
                 </div>
             </div>
             <div class="event-banner">
-                <h1>Event:</h1>
-                <input type = "text" id="event" readonly >
-                <button name="Next Day" onclick="nextDay()">Next Day</button>
+                <div class="event-banner-title"><h1>Event:</h1></div>
+                <div class="event-banner-description"><input type = "text" id="event" readonly ></div>
+                <div class="event-banner-nextday"><button name="Next Day" onclick="nextDay()">Next Day</button></div>
             </div>
-            <div class="stock-title">
-                <h1 id="stockTitle"></h1>
-            </div>
+            <div class="stock-title"><h1 id="stockTitle"></h1></div>
             <div class="action-panel">
-                <div class="graph-panel">
-                    <canvas id="myCanvas"></canvas>
-                </div>
+                <div class="graph-panel"><canvas id="myCanvas"></canvas></div>
                 <div class="stock-data-panel" id="selectedStock">
                     <div class="stock-data-banner">
                         <div class="stock-data-own-title"><p id="stocksAvailable"></p></div>
@@ -47,16 +33,17 @@
                         <div><p id="myStocks"></p></div>
                         <div><p id="currentWorth"></p></div>
                     </div>
-                    <div class="sell-buy-panel">
-                        <div class="sell-buy-stocks-title">
-                            <div><input type ="button" onclick ="buy()" value="Buy" /></div>
-                            <div><h1>#</h1></div>
-                            <div><input type ="button" onclick ="sell()" value="Sell" /></div>
-                        </div>
+                    <div class="sell-buy-stocks">
                         <div class="sell-buy-stocks-data">
-                            <div><input type="button" onclick="incrementValueDown()" value="-" /></div>
-                            <div><input type="text" id="inc" i="0" readonly /></div>
-                            <div><input type="button" onclick="incrementValueUp()" value="+" /></div>
+                            <div class="sell-buy-stocks-data-inc"><input type="text" id="inc" i="0" readonly /></div>
+                            <div class="sell-buy-stocks-data-up-down">
+                                <input type="button" onclick="incrementValueUp()" value="˄" />
+                                <input type="button" onclick="incrementValueDown()" value="˅" />
+                            </div>
+                        </div>
+                        <div class="sell-buy-stocks-buttons">
+                            <input class="sell-buy-stocks-buttons-buy" type ="button" onclick ="buy()" value="Buy" />
+                            <input class="sell-buy-stocks-buttons-sell" type ="button" onclick ="sell()" value="Sell" />
                         </div>
                     </div>
                 </div>

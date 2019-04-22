@@ -18,20 +18,26 @@ html, body, div.main-body
 
 div.content
 {
-    background-color: darkolivegreen;
-    width: 90%;
-    min-width: 950px;
-    height: 90%;
+    background-color: #101010;
+    width: 100%;
+    min-width: 784px;
+    max-width: 1200px;
+    height: 100%;
     min-height: 720px;
-	margin: 32px auto;
+	margin: 0 auto;
+}
+
+div.networth-cash-name
+{
+    width: 100%;
+    margin: 0 auto;
 }
 
 div.networth-cash-name-title div, div.networth-cash-name-data div
 {
     float: left; 
     width: 33%;
-    padding: 20px 0px;
-    background-color: darkslategray;
+    padding: 5px 0px;
 }
 
 div.networth-cash-name-title div.name-top-title, div.networth-cash-name-data div.name-top-data
@@ -39,48 +45,85 @@ div.networth-cash-name-title div.name-top-title, div.networth-cash-name-data div
     width: 34%;
 }
 
+div.networth-cash-name-title div
+{
+    font-size: 8px;
+    font-weight: bold;
+    background-color: #202020;
+    color: #adadad;
+}
+
+div.networth-cash-name-data div
+{
+    font-size: 32px;
+}
+
 div.event-banner
 {
+    float: left;
     width: 100%;
-    height: 36px;
+    height: 50px;
 }
 
-div.event-banner h1
+div.event-banner div
 {
     float: left;
-    width: 10%;
     height: 100%;
-    background-color: red;
 }
 
-div.event-banner input
+div.event-banner-title
 {
-    float: left;
+    width: 10%;
+    background-color: #202020;
+}
+
+div.event-banner-description
+{
     width: 80%;
-    height: 100%;
 }
 
-div.event-banner button
+div.event-banner-description input
 {
-    float: left;
-    width: 10%;
+    width: 100%;
     height: 100%;
-    background-color: brown;
+    background-color: black;
     color: white;
+    font-weight: bold;
+}
+div.event-banner-nextday
+{
+    float: right;
+    width: 10%;
+}
+
+div.event-banner-nextday button
+{
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    background-color: #0061ff;
+}
+
+div.event-banner-nextday button:hover
+{
+    background-color: #00a1ff;
 }
 
 div.stock-title
 {
-    padding: 180px 0px 36px 0px;
-    font-size: 48px;
-    background-color: aqua
+    float: left;
+    width: 100%;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 16px auto;
 }
 
 div.action-panel
 {
     width: 100%;
     height: 256px;
-    background-color: crimson
 }
 
 div.graph-panel
@@ -88,59 +131,136 @@ div.graph-panel
     float: left;
     width: 50%;
     height: 100%;
-    background-color: chartreuse;
 }
 
 div.graph-panel canvas
 {
-    width: 475px;
+    width: 100%;
     height: 100%;
-    background-color: #1e1e1e;
+    background-color: black;
 }
 
 div.stock-data-panel
 {
     float: right;
     width: 50%;
-    height: 50%;
-    background-color: violet;
+    height: 100%;
+    background-color: #202020;
 }
 
 div.stock-data-banner
 {
-        padding: 0;
-    margin: auto;
-    display: block;
     width: 100%;
-    height: 100%;
+    height: 50%;
+    background-color: #101010;
 }
 
 div.stock-data-banner div
 {
     float: left;
     width: 50%;
-    height; 1000%;
-    background-color: firebrick;
+    height: 50%;
+    font-size: 18px;
+    line-height: 60px;
 }
 
-div.sell-buy-panel
+div.sell-buy-stocks
+{
+    float: left;
+    width: 100%;
+    height: 50%;
+}
+
+div.sell-buy-stocks-data
 {
     width: 100%;
+    height: 50%;
+    float: left;
 }
 
-div.sell-buy-panel div
+div.sell-buy-stocks-data-inc
+{
+    float: left;
+    width: 90%;
+    height: 100%;
+}
+
+div.sell-buy-stocks-data-inc input
+{
+    float: left;
+    width: 100%;
+    height: 100%;
+    background-color: #050505;
+    color: white;
+    font-size: 52px
+}
+
+div.sell-buy-stocks-data-up-down
+{
+    float: left;
+    width: 10%;
+    height: 100%;
+}
+
+div.sell-buy-stocks-data-up-down input
+{
+    float: left;
+    width: 100%;
+    height: 50%;
+    background-color: #202020;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+div.sell-buy-stocks-data-up-down input:hover
+{
+    background-color: #606060;
+}
+
+div.sell-buy-stocks-buttons
+{
+    float: left;
+    width: 100%;
+    height: 50%;
+}
+
+div.sell-buy-stocks-buttons input
 {
     float: left;
     width: 50%;
-    height: auto;
-    background-color: firebrick;
+    height: 100%;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
 }
+
+input.sell-buy-stocks-buttons-buy
+{
+    background-color: #008000;
+}
+
+input.sell-buy-stocks-buttons-sell
+{
+    background-color: #800000;
+}
+
+input.sell-buy-stocks-buttons-buy:hover
+{
+    background-color: #00d000;
+}
+
+input.sell-buy-stocks-buttons-sell:hover
+{
+    background-color: #d00000;
+}
+
 
 div.stocks-table
 {
     width: 100%;
-    height: 30%;
-    background-color: darkmagenta;
+    overflow-y: scroll;
+    max-height: 35%;
 }
 
 div.stocks-table table, th, td
@@ -148,5 +268,26 @@ div.stocks-table table, th, td
     height: 48px;
     border-collapse: collapse;
     border: 1px solid white;
-    background-color: deepskyblue;
+}
+
+div.stocks-table th
+{
+    font-size: 20px;
+    font-weight: bold;
+    color: #adadad;
+}
+
+div.stocks-table button
+{
+    width: 100%;
+    height: 100%;
+    background-color: #303030;
+    color: white;
+    font-size: 20px;
+    
+}
+
+div.stocks-table button:hover
+{
+    background-color: #606060;
 }
