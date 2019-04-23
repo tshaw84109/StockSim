@@ -119,7 +119,7 @@ function incrementValueDown() {
 	if (incrementCounter < 0) incrementCounter = 0;
 }
 function buy() {
-    currentWorth = currentWorth + price * incrementCounter;
+    currentWorth = getValue(selectedStockID) * incrementCounter;
     if (bank < currentWorth) {
         alert("You do not have enough money to buy these shares.")
     }
