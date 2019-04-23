@@ -20,7 +20,7 @@ document.getElementById('event').value = eventString;
 document.getElementById('inc').value = incrementCounter;
 document.getElementById("name").innerHTML = localStorage.newPlayer;
 document.getElementById("networth").innerHTML = "$" + networth;
-document.getElementById("bank").innerHTML = "$" + bank;
+document.getElementById("bank").innerHTML = "$" + bank.toFixed(2);
 document.getElementById("myStocks").innerHTML = "Owned: " + stocks;
 document.getElementById("price").innerHTML = "Price per share: $" + price;
 document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
@@ -72,8 +72,15 @@ function loadStockTable(){
         html += "<td id='shares'" + i + ">" + stocksArray[i].shares  + "</td>"
         html += "<td>" + getWorth(i)  + "</td>"
         html += "<td>" + stocksArray[i].value[((stocksArray[i].value.length)-1)]  + "</td>"
-        html += "<td>" + Math.ceil(stocksArray[i].value[((stocksArray[i].value.length)-1)]*100 - stocksArray[i].value[((stocksArray[i].value.length)-2)]*100)/100  + "</td>"
-        html += "</tr>"
+        //html += "<td>" + Math.ceil(stocksArray[i].value[((stocksArray[i].value.length)-1)]*100 - stocksArray[i].value[((stocksArray[i].value.length)-2)]*100)/100  + "</td>"
+        if ((stocksArray[i].value[((stocksArray[i].value.length)-1)] - stocksArray[i].value[((stocksArray[i].value.length)-2)]) < 0)
+			{ 
+				html += "<td style = 'color: #800000;'>" + (stocksArray[i].value[((stocksArray[i].value.length)-1)] - stocksArray[i].value[((stocksArray[i].value.length)-2)]).toFixed(2) + "</td>"
+			} else
+			{
+				html += "<td style = 'color: #008000;'>" + (stocksArray[i].value[((stocksArray[i].value.length)-1)] - stocksArray[i].value[((stocksArray[i].value.length)-2)]).toFixed(2) + "</td>"
+			}
+		html += "</tr>"
         incrementCounter = 0;
         document.getElementById('inc').value = incrementCounter;
     }
@@ -105,8 +112,11 @@ function incrementValueUp() {
     document.getElementById('inc').value = ++incrementCounter;
 }
 function incrementValueDown() {
-    
-    document.getElementById('inc').value = --incrementCounter;
+    if (incrementCounter > 0)
+	{
+		document.getElementById('inc').value = --incrementCounter;
+	}
+	if (incrementCounter < 0) incrementCounter = 0;
 }
 function buy() {
     currentWorth = currentWorth + price * incrementCounter;
@@ -116,24 +126,25 @@ function buy() {
     else{
     document.getElementById("networth").innerHTML = "$" + networth;
     bank = bank -= incrementCounter * price;
-    document.getElementById("bank").innerHTML = "$" + bank;              
+    document.getElementById("bank").innerHTML = "$" + bank.toFixed(2);              
     stocks = stocks + incrementCounter;
     stocksArray[selectedStockID].shares += incrementCounter;
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[selectedStockID].shares;
     stocksAvailable = stocksAvailable - incrementCounter;
     document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
     
-    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
+    //document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
     loadStockTable();
     }
+	loadSelectedStock(selectedStockID);
 }
 function sell() {
-    if (stocks < incrementCounter) {
+    if (incrementCounter > stocksArray[selectedStockID].shares) {
         alert("You don't have enough shares to sell.")
     }
     else{
     bank = bank += incrementCounter * price;
-    document.getElementById("bank").innerHTML = "$" + bank;
+    document.getElementById("bank").innerHTML = "$" + bank.toFixed(2);
     document.getElementById("networth").innerHTML = "$" + networth;
     stocks = stocks - incrementCounter;
     stocksArray[selectedStockID].shares -= incrementCounter;
@@ -141,9 +152,10 @@ function sell() {
     stocksAvailable = stocksAvailable + incrementCounter;
     document.getElementById("stocksAvailable").innerHTML = "Stocks Available: " + 100;
     currentWorth = currentWorth - price * incrementCounter;
-    document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
+    //document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + currentWorth;
     loadStockTable();
     }
+	loadSelectedStock(selectedStockID);
 }
 function loadSelectedStock(StockID){
     selectedStockID = StockID;
@@ -152,6 +164,7 @@ function loadSelectedStock(StockID){
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[StockID].shares;
 	price = getValue(StockID);
     GenerateGraph(StockID);
+	document.getElementById("currentWorth").innerHTML = "Networth of shares: $" + getWorth(StockID);
 }
 function nextDay()
 {
@@ -173,6 +186,7 @@ function nextDay()
 		if(stocksArray[j].swing < 5) stocksArray[j].swing = 5;
 		
     }
+	day++;
     loadStockTable();
     event();
 }
