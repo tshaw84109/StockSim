@@ -8,12 +8,13 @@ var name = name;
 var bank = 1000;
 var networth = 0;
 var stocks = 0;
-var price = 100;
+var price;
 var currentWorth = 0;
 var stocksAvailable = 100;
 var selectedStockID= 0;
 var eventString = "Death";
 var o;
+var day = 0;
 
 document.getElementById('event').value = eventString;
 document.getElementById('inc').value = incrementCounter;
@@ -30,7 +31,7 @@ function StartingStockValue(){
     return tempCents/100;
 }
 function getWorth(id){
-    return stocksArray[id].shares * stocksArray[id].value[(stocksArray[id].value.length)-1];
+    return Math.ceil(stocksArray[id].shares * stocksArray[id].value[(stocksArray[id].value.length)-1]*100)/100;
 }
 
 function getValue(id){
@@ -71,7 +72,7 @@ function loadStockTable(){
         html += "<td id='shares'" + i + ">" + stocksArray[i].shares  + "</td>"
         html += "<td>" + getWorth(i)  + "</td>"
         html += "<td>" + stocksArray[i].value[((stocksArray[i].value.length)-1)]  + "</td>"
-        html += "<td>" + (stocksArray[i].value[((stocksArray[i].value.length)-1)] - stocksArray[i].value[((stocksArray[i].value.length)-2)])  + "</td>"
+        html += "<td>" + Math.ceil(stocksArray[i].value[((stocksArray[i].value.length)-1)]*100 - stocksArray[i].value[((stocksArray[i].value.length)-2)]*100)/100  + "</td>"
         html += "</tr>"
         incrementCounter = 0;
         document.getElementById('inc').value = incrementCounter;
@@ -145,10 +146,11 @@ function sell() {
     }
 }
 function loadSelectedStock(StockID){
-    SelectedStockID = StockID;
+    selectedStockID = StockID;
     document.getElementById("stockTitle").innerHTML = ""+stocksArray[StockID].company;
     document.getElementById("price").innerHTML = "Price per share: $" + stocksArray[StockID].value[((stocksArray[StockID].value.length)-1)];
     document.getElementById("myStocks").innerHTML = "Owned: " + stocksArray[StockID].shares;
+	price = getValue(StockID);
     GenerateGraph(StockID);
 }
 function nextDay()
@@ -215,5 +217,5 @@ function GenerateGraph(StockID)
     }
 }
 function event() {
-    document.getElementById('event').value = "Not Death";
+    document.getElementById('event').value = "Day: " + day + " Today is a sunny day";
 }
