@@ -194,7 +194,7 @@ function nextDay()
 function SplitStock(StockID)
 {
 	stocksArray[StockID].value.push(getValue(StockID)/2);
-	stocksArray[StockID].share *= 2;
+	stocksArray[StockID].shares *= 2;
 }
 
 
