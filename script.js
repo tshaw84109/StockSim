@@ -38,6 +38,14 @@ function getValue(id){
     return stocksArray[id].value[(stocksArray[id].value.length)-1];
 }
 
+function getNetWorth(){
+	net = bank;
+	for(i = 0 ; i < stocksArray.length ; i++){
+		net += getWorth(i);
+	}
+	return net.toFixed(2);
+}
+
 function GenerateStock(CompanyName, StartValue){
     //returnValue = {company:"", value:[0],shares:0}
     returnValue = {company:"", value:[0],shares:0,trend:0,swing:0,worth:0}
@@ -87,6 +95,7 @@ function loadStockTable(){
     html += "</td></tr></table>"
     document.getElementById("StockTableDiv").innerHTML = html;
     loadSelectedStock(selectedStockID);
+	document.getElementById("networth").innerHTML = "$" + getNetWorth();
 }
 // Load game funtion
 // needs to be able to check if saved game exists
