@@ -189,7 +189,11 @@ function nextDay()
 			stocksArray[j].value.shift();
 			stocksArray[j].value.shift();
 		}
-		if(stocksArray[j].trend < 1)stocksArray[j].trend += .002;
+		if(getWorth(j) > 100000){
+			if(stocksArray[j].trend > -0.1)stocksArray[j].trend = -0.1;
+		}else{
+			if(stocksArray[j].trend < 1)stocksArray[j].trend += .002;
+		}
 		if(stocksArray[j].trend > 1) stocksArray[j].trend = 1;
 		if(stocksArray[j].swing > 5) stocksArray[j].swing -= .001;
 		if(stocksArray[j].swing < 5) stocksArray[j].swing = 5;
